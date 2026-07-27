@@ -44,6 +44,13 @@ jobs:
           file gradle/wrapper/gradle-wrapper.jar
           jar tf gradle/wrapper/gradle-wrapper.jar | head
 
+      - name: Regenerate Gradle Wrapper if corrupt
+        run: |
+          if ! jar tf gradle/wrapper/gradle-wrapper.jar > /dev/null 2>&1; then
+            echo "Wrapper jar corrupt — regenerating"
+            curl -L -o gradle/wrapper/gradle-wrapper.jar \
+              https://raw.githubusercontent.com/gradle/gradle/master/gradle/wrapper/gradle-wrapper.jar
+          fi
       - name: Build Debug APK
         run: ./gradlew assembleDebug --stacktrace
 
