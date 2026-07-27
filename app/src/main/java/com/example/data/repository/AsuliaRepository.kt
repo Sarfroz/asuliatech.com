@@ -66,6 +66,125 @@ class AsuliaRepository {
     private val _rechargePlans = MutableStateFlow<List<RechargePlan>>(emptyList())
     val rechargePlans = _rechargePlans.asStateFlow()
 
+    init {
+        val cachedUserJson = SessionManager.getCachedUser()
+        if (!cachedUserJson.isNullOrEmpty()) {
+            try {
+                val obj = JSONObject(cachedUserJson)
+                _currentUser.value = ParentUser(
+                    id = obj.optString("id", ""),
+                    name = obj.optString("name", "Parent"),
+                    mobileNumber = obj.optString("mobileNumber", ""),
+                    email = obj.optString("email", ""),
+                    currentPlan = obj.optString("currentPlan", "Active"),
+                    walletBalanceMinutes = obj.optInt("walletBalanceMinutes", 0),
+                    linkedStudentsCount = obj.optInt("linkedStudentsCount", 1)
+                )
+            } catch (_: Exception) {}
+        }
+
+        val cachedStudentsJson = SessionManager.getCachedStudents()
+        if (!cachedStudentsJson.isNullOrEmpty()) {
+            val cachedList = parseStudents(cachedStudentsJson)
+            if (cachedList.isNotEmpty()) {
+                _students.value = cachedList
+            }
+        }
+
+        val savedCardId = SessionManager.getSelectedCardId().orEmpty()
+        if (savedCardId.isNotEmpty()) {
+            _selectedStudentId.value = savedCardId
+        } else if (_students.value.isNotEmpty()) {
+            _selectedStudentId.value = _students.value.first().id
+        }
+    }
+
+    private fun serializeStudents(students: List<Student>): String {
+        val array = org.json.JSONArray()
+        for (s in students) {
+            val obj = JSONObject().apply {
+                put("id", s.id)
+                put("name", s.name)
+                put("initial", s.initial)
+                put("className", s.className)
+                put("schoolName", s.schoolName)
+                put("walletBalanceMinutes", s.walletBalanceMinutes)
+                put("dailyLimitMinutes", s.dailyLimitMinutes)
+                put("dayMinutesLeft", s.dayMinutesLeft)
+                put("usedTodayMinutes", s.usedTodayMinutes)
+                put("planName", s.planName)
+                put("expiry", s.expiry)
+                put("cardId", s.cardId)
+                put("registeredMobile", s.registeredMobile)
+                put("mobile1", s.mobile1)
+                put("mobile2", s.mobile2)
+                put("mobile3", s.mobile3)
+                put("callScheduleDay", s.callScheduleDay)
+                put("callScheduleTime", s.callScheduleTime)
+                put("status", s.status)
+            }
+            array.put(obj)
+        }
+        return array.toString()
+    }
+
+    private fun parseStudents(jsonStr: String): List<Student> {
+        val list = mutableListOf<Student>()
+        try {
+            val array = org.json.JSONArray(jsonStr)
+            for (i in 0 until array.length()) {
+                val obj = array.getJSONObject(i)
+                list.add(
+                    Student(
+                        id = obj.optString("id", ""),
+                        name = obj.optString("name", "Student"),
+                        initial = obj.optString("initial", "S"),
+                        className = obj.optString("className", ""),
+                        schoolName = obj.optString("schoolName", ""),
+                        walletBalanceMinutes = obj.optInt("walletBalanceMinutes", 0),
+                        dailyLimitMinutes = obj.optInt("dailyLimitMinutes", 10),
+                        dayMinutesLeft = obj.optInt("dayMinutesLeft", 10),
+                        usedTodayMinutes = obj.optInt("usedTodayMinutes", 0),
+                        planName = obj.optString("planName", "Active Plan"),
+                        expiry = obj.optString("expiry", "Unlimited"),
+                        cardId = obj.optString("cardId", ""),
+                        registeredMobile = obj.optString("registeredMobile", ""),
+                        mobile1 = obj.optString("mobile1", ""),
+                        mobile2 = obj.optString("mobile2", ""),
+                        mobile3 = obj.optString("mobile3", ""),
+                        callScheduleDay = obj.optString("callScheduleDay", "Everyday"),
+                        callScheduleTime = obj.optString("callScheduleTime", "7am-10pm"),
+                        status = obj.optString("status", "Active")
+                    )
+                )
+            }
+        } catch (_: Exception) {}
+        return list
+    }
+
+    private fun persistCurrentStudents() {
+        val list = _students.value
+        if (list.isNotEmpty()) {
+            SessionManager.saveCachedStudents(serializeStudents(list))
+        }
+    }
+
+    private fun persistCurrentUser() {
+        val user = _currentUser.value ?: return
+        try {
+            val obj = JSONObject().apply {
+                put("id", user.id)
+                put("name", user.name)
+                put("mobileNumber", user.mobileNumber)
+                put("email", user.email)
+                put("currentPlan", user.currentPlan)
+                put("walletBalanceMinutes", user.walletBalanceMinutes)
+                put("linkedStudentsCount", user.linkedStudentsCount)
+            }
+            SessionManager.saveCachedUser(obj.toString())
+        } catch (_: Exception) {}
+    }
+
     fun selectStudent(studentId: String) {
         _selectedStudentId.value = studentId
         SessionManager.saveSelectedCardId(studentId)
@@ -177,6 +296,7 @@ class AsuliaRepository {
                     } ?: emptyList()
 
                     _students.value = mappedStudents
+                    persistCurrentStudents()
 
                     val primaryCardId = body.primaryCardId ?: mappedStudents.firstOrNull()?.cardId ?: mappedStudents.firstOrNull()?.id ?: ""
                     if (primaryCardId.isNotEmpty()) {
@@ -198,6 +318,7 @@ class AsuliaRepository {
                         walletBalanceMinutes = userDto?.walletBalanceMinutes ?: mappedStudents.sumOf { it.walletBalanceMinutes },
                         linkedStudentsCount = userDto?.linkedStudentsCount ?: mappedStudents.size
                     )
+                    persistCurrentUser()
 
                     // Trigger initial data load
                     refreshData()
@@ -271,6 +392,7 @@ class AsuliaRepository {
                             if (currentList.isEmpty()) listOf(student) else currentList + student
                         }
                     }
+                    persistCurrentStudents()
 
                     Result.success(student)
                 } else {

@@ -30,6 +30,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -58,6 +59,10 @@ fun HomeScreen(
     onNavigateToAlerts: () -> Unit
 ) {
     val uiState by dashboardViewModel.uiState.collectAsState()
+
+    LaunchedEffect(Unit) {
+        dashboardViewModel.refreshDashboard()
+    }
 
     val refreshRotation by animateFloatAsState(
         targetValue = if (uiState.isRefreshing) 360f else 0f,

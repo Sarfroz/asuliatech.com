@@ -11,6 +11,8 @@ object SessionManager {
     private const val PREF_NAME = "asulia_parent_session"
     private const val KEY_AUTH_TOKEN = "auth_token"
     private const val KEY_SELECTED_CARD_ID = "selected_card_id"
+    private const val KEY_CACHED_STUDENTS = "cached_students_json"
+    private const val KEY_CACHED_USER = "cached_user_json"
 
     private var prefs: SharedPreferences? = null
 
@@ -43,6 +45,22 @@ object SessionManager {
 
     fun getSelectedCardId(): String? {
         return prefs?.getString(KEY_SELECTED_CARD_ID, null)
+    }
+
+    fun saveCachedStudents(json: String) {
+        prefs?.edit()?.putString(KEY_CACHED_STUDENTS, json)?.apply()
+    }
+
+    fun getCachedStudents(): String? {
+        return prefs?.getString(KEY_CACHED_STUDENTS, null)
+    }
+
+    fun saveCachedUser(json: String) {
+        prefs?.edit()?.putString(KEY_CACHED_USER, json)?.apply()
+    }
+
+    fun getCachedUser(): String? {
+        return prefs?.getString(KEY_CACHED_USER, null)
     }
 
     fun clearSession() {

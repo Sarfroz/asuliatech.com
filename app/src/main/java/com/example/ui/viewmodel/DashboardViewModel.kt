@@ -32,6 +32,10 @@ class DashboardViewModel(
     private val repository: AsuliaRepository
 ) : ViewModel() {
 
+    init {
+        refreshDashboard()
+    }
+
     val user: StateFlow<ParentUser?> = repository.currentUser
     val students: StateFlow<List<Student>> = repository.students
     val selectedStudentId: StateFlow<String> = repository.selectedStudentId

@@ -1,14 +1,17 @@
 name: Android CI / Build APK
+
 on:
   push:
     branches: [ "main", "master" ]
   pull_request:
     branches: [ "main", "master" ]
   workflow_dispatch:
+
 jobs:
   build:
     name: Build Debug APK
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -26,42 +29,10 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Generate debug keystore
+      - name: Restore debug keystore
         run: |
-          keytool -genkey -v -keystore debug.keystore -storetype PKCS12 \
-            -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 10000 \
-            -storepass android -keypass android \
-            -dname "CN=Android Debug,O=Android,C=US"
-
-      - name: Verify Gradle Wrapper
-        run: |
-          pwd
-          java -version
-          ls -lh gradle/wrapper
-          sha256sum gradle/wrapper/gradle-wrapper.jar
-          file gradle/wrapper/gradle-wrapper.jar
-          jar tf gradle/wrapper/gradle-wrapper.jar | head
-
-      - name: Regenerate Gradle Wrapper if corrupt
-        run: |
-          if ! jar tf gradle/wrapper/gradle-wrapper.jar > /dev/null 2>&1; then
-            echo "gradle-wrapper.jar is corrupt or invalid — regenerating from official source"
-
-            DIST_URL=$(grep 'distributionUrl' gradle/wrapper/gradle-wrapper.properties | cut -d'=' -f2- | sed 's/\\:/:/g')
-            GRADLE_VERSION=$(echo "$DIST_URL" | grep -oP 'gradle-\K[0-9.]+(?=-(bin|all)\.zip)')
-            echo "Detected Gradle version: $GRADLE_VERSION"
-
-            TMP_DIR=$(mktemp -d)
-            curl -L -o "$TMP_DIR/gradle.zip" "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip"
-            unzip -q "$TMP_DIR/gradle.zip" -d "$TMP_DIR"
-            cp "$TMP_DIR/gradle-${GRADLE_VERSION}/lib/plugins/gradle-wrapper-main-${GRADLE_VERSION}.jar" gradle/wrapper/gradle-wrapper.jar 2>/dev/null || \
-            find "$TMP_DIR/gradle-${GRADLE_VERSION}" -name "gradle-wrapper-*.jar" -exec cp {} gradle/wrapper/gradle-wrapper.jar \;
-
-            echo "Regenerated. Verifying..."
-            file gradle/wrapper/gradle-wrapper.jar
-            jar tf gradle/wrapper/gradle-wrapper.jar | head
-          else
-            echo "gradle-wrapper.jar is valid — no action needed"
+          if [ -f debug.keystore.base64 ]; then
+            base64 -d debug.keystore.base64 > debug.keystore
           fi
 
       - name: Build Debug APK
