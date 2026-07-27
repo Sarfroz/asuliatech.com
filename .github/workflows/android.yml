@@ -35,6 +35,15 @@ jobs:
             base64 -d debug.keystore.base64 > debug.keystore
           fi
 
+      - name: Verify Gradle Wrapper
+        run: |
+          pwd
+          java -version
+          ls -lh gradle/wrapper
+          sha256sum gradle/wrapper/gradle-wrapper.jar
+          file gradle/wrapper/gradle-wrapper.jar
+          jar tf gradle/wrapper/gradle-wrapper.jar | head
+
       - name: Build Debug APK
         run: ./gradlew assembleDebug --stacktrace
 
