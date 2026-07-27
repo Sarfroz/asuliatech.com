@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="320dp"
+    android:height="260dp"
+    android:viewportWidth="320"
+    android:viewportHeight="260">
+
+    <!-- 1. Background Aura & Elements -->
+    <!-- Soft blue outer halo -->
+    <path
+        android:fillColor="#F0F7FF"
+        android:pathData="M160,10 C240,10 290,55 290,135 C290,215 240,250 160,250 C80,250 30,215 30,135 C30,55 80,10 160,10 Z" />
+    <path
+        android:fillColor="#E2F1FF"
+        android:pathData="M160,25 C225,25 265,65 265,135 C265,205 225,235 160,235 C95,235 55,205 55,135 C55,65 95,25 160,25 Z" />
+
+    <!-- Shield Badge with Checkmark (Top Right) -->
+    <path
+        android:fillColor="#E0F2FE"
+        android:strokeColor="#7DD3FC"
+        android:strokeWidth="2"
+        android:pathData="M232,35 C252,35 268,45 268,68 C268,102 232,122 232,122 C232,122 196,102 196,68 C196,45 212,35 232,35 Z" />
+    <path
+        android:fillColor="#0284C7"
+        android:strokeColor="#0284C7"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M222,68 L229,75 L242,60" />
+
+    <!-- Dot Matrix Accent (Right Background) -->
+    <path android:fillColor="#BAE6FD" android:pathData="M275,80 A1.5,1.5 0 1,1 278,80 A1.5,1.5 0 1,1 275,80 Z M283,80 A1.5,1.5 0 1,1 286,80 A1.5,1.5 0 1,1 283,80 Z M291,80 A1.5,1.5 0 1,1 294,80 A1.5,1.5 0 1,1 291,80 Z" />
+    <path android:fillColor="#BAE6FD" android:pathData="M275,88 A1.5,1.5 0 1,1 278,88 A1.5,1.5 0 1,1 275,88 Z M283,88 A1.5,1.5 0 1,1 286,88 A1.5,1.5 0 1,1 283,88 Z M291,88 A1.5,1.5 0 1,1 294,88 A1.5,1.5 0 1,1 291,88 Z" />
+    <path android:fillColor="#BAE6FD" android:pathData="M275,96 A1.5,1.5 0 1,1 278,96 A1.5,1.5 0 1,1 275,96 Z M283,96 A1.5,1.5 0 1,1 286,96 A1.5,1.5 0 1,1 283,96 Z M291,96 A1.5,1.5 0 1,1 294,96 A1.5,1.5 0 1,1 291,96 Z" />
+
+    <!-- Leaf Accents (Left Background) -->
+    <path
+        android:fillColor="#0284C7"
+        android:pathData="M38,135 C28,122 18,130 14,142 C20,147 32,152 38,135 Z M52,155 C40,143 28,150 22,162 C29,168 42,172 52,155 Z" />
+
+    <!-- 2. FATHER (CENTER) -->
+    <!-- Hair & Head -->
+    <path
+        android:fillColor="#1E293B"
+        android:pathData="M132,38 C135,22 185,22 188,38 C195,50 190,68 182,68 C176,68 144,68 138,68 C130,68 125,50 132,38 Z" />
+    <!-- Face -->
+    <path
+        android:fillColor="#FDBA74"
+        android:pathData="M142,48 C142,38 178,38 178,48 C178,78 172,88 160,88 C148,88 142,78 142,48 Z" />
+    <!-- Beard & Smile -->
+    <path
+        android:fillColor="#334155"
+        android:pathData="M145,64 C148,80 172,80 175,64 C170,74 150,74 145,64 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M152,67 C156,71 164,71 168,67 C164,69 156,69 152,67 Z" />
+    <!-- Eyes -->
+    <path android:fillColor="#0F172A" android:pathData="M149,52 A2.5,2.5 0 1,1 154,52 A2.5,2.5 0 1,1 149,52 Z" />
+    <path android:fillColor="#0F172A" android:pathData="M166,52 A2.5,2.5 0 1,1 171,52 A2.5,2.5 0 1,1 166,52 Z" />
+
+    <!-- Father Shirt (Sky Blue Collar & Body) -->
+    <path
+        android:fillColor="#93C5FD"
+        android:pathData="M112,98 L208,98 L225,250 L95,250 Z" />
+    <!-- Collar Detail -->
+    <path
+        android:fillColor="#BFDBFE"
+        android:pathData="M142,98 L160,122 L178,98 L168,98 L160,112 L152,98 Z" />
+    <!-- Buttons -->
+    <path android:fillColor="#3B82F6" android:pathData="M160,132 A2,2 0 1,1 160,136 A2,2 0 1,1 160,132 Z" />
+    <path android:fillColor="#3B82F6" android:pathData="M160,152 A2,2 0 1,1 160,156 A2,2 0 1,1 160,152 Z" />
+
+    <!-- Father Hugging Arm Left -->
+    <path
+        android:fillColor="#FDBA74"
+        android:pathData="M110,120 C90,135 60,150 50,155 L58,168 C68,162 98,145 118,130 Z" />
+
+    <!-- 3. BOY (LEFT - SCHOOL UNIFORM WITH TIE) -->
+    <!-- Backpack Strap Left -->
+    <path
+        android:fillColor="#1D4ED8"
+        android:pathData="M52,135 C48,160 52,210 58,250 L75,250 C68,210 65,160 68,135 Z" />
+    <!-- Hair -->
+    <path
+        android:fillColor="#0F172A"
+        android:pathData="M72,72 C72,55 112,55 112,72 C112,85 72,85 72,72 Z" />
+    <!-- Face -->
+    <path
+        android:fillColor="#FED7AA"
+        android:pathData="M78,75 C78,62 106,62 106,75 C106,102 100,108 92,108 C84,108 78,102 78,75 Z" />
+    <!-- Boy Smile -->
+    <path
+        android:strokeColor="#C2410C"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:pathData="M85,94 Q92,102 99,94" />
+    <path android:fillColor="#0F172A" android:pathData="M84,78 A2,2 0 1,1 88,78 A2,2 0 1,1 84,78 Z" />
+    <path android:fillColor="#0F172A" android:pathData="M96,78 A2,2 0 1,1 100,78 A2,2 0 1,1 96,78 Z" />
+
+    <!-- Boy White Shirt & Blue Tie -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M60,115 L125,115 L135,250 L50,250 Z" />
+    <!-- Collar White -->
+    <path
+        android:fillColor="#E2E8F0"
+        android:pathData="M82,115 L92,128 L102,115 Z" />
+    <!-- Royal Blue Tie -->
+    <path
+        android:fillColor="#1D4ED8"
+        android:pathData="M89,115 L95,115 L98,160 L92,168 L86,160 Z" />
+
+    <!-- 4. GIRL (RIGHT - SCHOOL PINAFORE & PONYTAIL) -->
+    <!-- Backpack Strap Right -->
+    <path
+        android:fillColor="#1D4ED8"
+        android:pathData="M268,140 C272,165 268,210 262,250 L245,250 C252,210 255,165 252,140 Z" />
+    <!-- Ponytail Hair -->
+    <path
+        android:fillColor="#0F172A"
+        android:pathData="M202,78 C202,60 242,60 242,78 C255,85 262,112 255,128 C248,115 242,102 242,95 Z" />
+    <!-- Hair Tie (Blue) -->
+    <path android:fillColor="#2563EB" android:pathData="M240,92 A4,4 0 1,1 248,92 A4,4 0 1,1 240,92 Z" />
+
+    <!-- Face -->
+    <path
+        android:fillColor="#FED7AA"
+        android:pathData="M206,80 C206,68 234,68 234,80 C234,105 228,112 220,112 C212,112 206,105 206,80 Z" />
+    <!-- Girl Smile -->
+    <path
+        android:strokeColor="#C2410C"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:pathData="M213,98 Q220,106 227,98" />
+    <path android:fillColor="#0F172A" android:pathData="M212,82 A2,2 0 1,1 216,82 A2,2 0 1,1 212,82 Z" />
+    <path android:fillColor="#0F172A" android:pathData="M224,82 A2,2 0 1,1 228,82 A2,2 0 1,1 224,82 Z" />
+
+    <!-- White Shirt & Royal Blue Pinafore Dress -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M195,120 L260,120 L270,250 L185,250 Z" />
+    <path
+        android:fillColor="#1D4ED8"
+        android:pathData="M200,138 L255,138 L265,250 L190,250 Z" />
+
+    <!-- 5. SMARTPHONE (HELD IN CENTER) -->
+    <!-- Father & Children Arms -->
+    <path
+        android:fillColor="#FDBA74"
+        android:pathData="M138,140 C138,140 150,132 160,140 L163,160 L140,160 Z" />
+    <!-- Girl Pointing Finger -->
+    <path
+        android:fillColor="#FED7AA"
+        android:pathData="M190,152 L172,146 L174,142 L192,148 Z" />
+
+    <!-- Modern Dark Smartphone Device -->
+    <path
+        android:fillColor="#0F172A"
+        android:pathData="M145,120 L178,120 L178,175 L145,175 Z" />
+    <!-- Glowing Screen -->
+    <path
+        android:fillColor="#38BDF8"
+        android:pathData="M147,123 L176,123 L176,172 L147,172 Z" />
+    <!-- UI Elements on Phone Screen -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M152,135 L171,135 L171,139 L152,139 Z M152,143 L166,143 L166,146 L152,146 Z" />
+    <path
+        android:fillColor="#0284C7"
+        android:pathData="M152,152 L171,152 L171,165 L152,165 Z" />
+
+</vector>

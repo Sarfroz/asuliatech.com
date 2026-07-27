@@ -1,0 +1,6 @@
+{
+  "name": "AsuliaTech Parent",
+  "description": "Smart Card Pay Phone account monitoring and recharge portal for parents.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
